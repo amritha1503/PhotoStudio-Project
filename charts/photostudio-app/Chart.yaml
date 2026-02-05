@@ -1,0 +1,17 @@
+apiVersion: v2
+name: photostudio-app-chart
+description: A Helm chart for Photo Studio Application with MongoDB
+type: application
+version: 1.7.2
+appVersion: "1.0"
+keywords:
+  - photo-studio
+  - mongodb
+  - kubernetes
+home: https://github.com/yourusername/photo-studio
+sources:
+  - https://github.com/yourusername/photo-studio
+maintainers:
+  - name: DevOps Team
+    email: devops@example.com
+icon: https://example.com/icon.png
