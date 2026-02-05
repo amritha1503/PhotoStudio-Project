@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name}}-ps-service
+  namespace: {{ .Values.namespace}}
+spec:
+  selector:
+    app: {{ .Values.deployment.labels.app}}
+  ports:
+    - protocol: {{ .Values.deployment.protocol}}
+      port: {{ .Values.deployment.containerPort}}
+      targetPort: {{ .Values.deployment.containerPort}}
+      # nodePort: {{ .Values.deployment.nodePort}}
+  type: LoadBalancer

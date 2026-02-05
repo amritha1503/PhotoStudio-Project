@@ -1,0 +1,11 @@
+apiVersion: v1 
+kind: ConfigMap 
+metadata:
+  name: {{ .Release.Name }}-ps-config
+  namespace: {{ .Values.namespace }}
+data:
+  MONGODB_URI: "mongodb://mongodb-service.{{ .Release.Namespace }}.svc.cluster.local:27017"
+  # MONGODB_URI: {{ .Values.data.MONGODB_URI_db }}
+  PORT: {{ .Values.deployment.containerPort | quote}}
+  HOST: {{ .Values.deployment.appinterface | quote }}
+  NODE_ENV: {{ .Values.deployment.environment | quote }}  

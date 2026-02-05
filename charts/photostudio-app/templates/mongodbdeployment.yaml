@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-mongodb
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.db.replica }}
+  selector:
+    matchLabels:
+      app: {{ .Values.db.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.db.labels.app }}
+    spec:
+      containers:
+      - name: {{ .Values.db.containername }}
+        image: "{{ .Values.db.image.repository }}:{{ .Values.db.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.db.containerPort }}
+        volumeMounts:
+        - name: {{ .Values.db.volumeMounts.name }}
+          mountPath: {{ .Values.db.volumeMounts.mountPath}}
+      volumes:
+      - name: {{ .Values.db.volumeMounts.name }}
+        persistentVolumeClaim:
+          claimName: {{ printf "%s-%s" .Release.Name .Values.persistence.mongodb.dbclaimname}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+  selector:
+    app: {{ .Values.db.labels.app }}
+  ports:
+  - port: {{ .Values.db.containerPort }}
+    targetPort: {{ .Values.db.targetPort}}
+  type: {{ .Values.db.loadbalancer.type}}
+ 
+ 
