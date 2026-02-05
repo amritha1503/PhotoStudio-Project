@@ -1,1 +1,66 @@
 
+namespace: final
+replicas: 5
+app: ps
+deployment:
+  labels:
+    app: ps
+  containerName: pscont
+  containerPort: 3000
+  # nodePort: 3089
+  appinterface: 0.0.0.0   # this means all interfaces are allowed
+  environment: production
+  selector: ps
+  ingress:
+    ClassName: nginx
+    path: /
+    pathType: Prefix
+  service: ps-service
+  protocol: TCP
+image:
+  repository: amritha1989/photostudio
+  tag: latest
+configMapRef:
+  configmapname: ps-config
+volumeMounts:
+  name: ps-storage
+  mountPath: /app/storage
+persistence: 
+  app: 
+    claimName: ps-pvc
+    storageClassName: azurefile-csi
+    accessModes:
+      - ReadWriteMany
+    size: 5Gi
+  mongodb:    
+    dbclaimname: mongodb-pvc
+    dbaccessModes:
+    - ReadWriteOnce
+    dbstorageClassName: managed-csi
+    dbsize: 10Gi
+    
+    
+    
+data:
+  MONGODB_URI_db: "mongodb://mongodb-service.{{ .Release.Namespace }}.svc.cluster.local:27017"
+db:
+  replica: 1
+  labels:
+    app: mongodb
+  containername: mongodb
+  image: 
+    repository: mongo
+    tag: 7-jammy
+  containerPort: 27017
+  targetPort: 27017
+  volumeMounts:
+    name: mongodb-storage
+    mountPath: /data/db
+  access: ReadWriteOnce
+  secretType: Opaque
+  username: admin
+  password: StrongPassword123!
+  loadbalancer:
+    type: ClusterIP
+    
+
