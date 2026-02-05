@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: photostudio-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Amritha1989/Photo-studio-Final-Project
+    path: charts/photostudio-app
+    targetRevision: "*"
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: final
+  syncPolicy:
+    automated:
+      prune: true
+      enabled: true
