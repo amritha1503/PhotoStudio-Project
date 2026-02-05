@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Amritha1989/Photo-studio-Final-Project
+    repoURL: https://github.com/Amritha1503/PhotoStudio-Project
     path: charts/photostudio-app
     targetRevision: "*"
     helm:
