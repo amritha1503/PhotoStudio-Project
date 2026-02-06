@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/Amritha1503/PhotoStudio-Project
+    repoURL: https://github.com/amritha1503/PhotoStudio-Project
     path: charts/photostudio-app
-    targetRevision: *.*
+    targetRevision: azure-devops
     helm:
       valueFiles:
         - values.yaml
