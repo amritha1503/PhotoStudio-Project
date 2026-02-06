@@ -18,8 +18,8 @@ deployment:
   service: ps-service
   protocol: TCP
 image:
-  repository: amritha1989/photostudio
-  tag: latest
+  repository: projectps.azurecr.io/photostudio
+  tag: 1.0.0
 configMapRef:
   configmapname: ps-config
 volumeMounts:
