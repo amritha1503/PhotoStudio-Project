@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: phototstudio 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phototstudio
+  template:
+    metadata:
+      labels:
+        app: phototstudio 
+    spec:
+      containers:
+        - name: phototstudio 
+          image: projectps.azurecr.io/phototstudio
+          ports:
+          - containerPort: 3000
